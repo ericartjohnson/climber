@@ -7,7 +7,7 @@ public class CameraFollow : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+
 	}
 	
 	// LateUpdate is called once per frame after all other Update calls

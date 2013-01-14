@@ -1,4 +1,4 @@
- using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using JsonFx.Json;
 
@@ -64,10 +64,11 @@ public class FieldCharacterMovement : MonoBehaviour {
 	    	moveDirection = new Vector3(Input.GetAxis("Horizontal"), moveDirection.y, 0);
 	        moveDirection = transform.TransformDirection(moveDirection);
 	        moveDirection = new Vector3(moveDirection.x * speed, moveDirection.y,0);
+	        moveDirection.y -= gravity * Time.deltaTime;
 	    }
 
 	    // Apply gravity
-	    moveDirection.y -= gravity * Time.deltaTime;
+	    //moveDirection.y -= gravity * Time.deltaTime;
 	    
 	    // Move the controller
 	    controller.Move(moveDirection * Time.deltaTime);

@@ -2,6 +2,7 @@
 /Library
 /Temp
 /Builds
+/obj
 
 #Project/User Preference Files
 *.sln
@@ -10,6 +11,7 @@
 *.userprefs
 *.user
 *.suo
+*.sublime*
 
 #OS Junk
 Thumbs.db
