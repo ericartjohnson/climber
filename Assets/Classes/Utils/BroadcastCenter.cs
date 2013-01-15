@@ -25,32 +25,28 @@ public static class BroadcastCenter{
 	}
 
 	public static void removeListener(Action<object>action, string messageName){
-
-		Action<BroadcastListener> remove = delegate(BroadcastListener bl){
-			if(bl.action == action && bl.messageName == messageName){
-				bl.shouldRemove = true;
-			}
-		};
-
-		broadcastListeners.ForEach(remove);
+		for(int i = 0; i < broadcastListeners.Count; i+= 1) //  for each file
+		{
+			BroadcastListener bl = broadcastListeners[i];
+    		if(bl.action == action && bl.messageName == messageName) bl.shouldRemove = true;
+			broadcastListeners[i] = bl;
+		}
 	}
 
 	public static void broadcastMessage(string messageName, object messageData){
-		Action<BroadcastListener> broadcast = delegate(BroadcastListener bl){ 
+		foreach(BroadcastListener bl in broadcastListeners){
 			if(!bl.shouldRemove && bl.messageName == messageName){
 				bl.action.Invoke(messageData);
 			}
-		};
-		broadcastListeners.ForEach(broadcast);
-		cleanListenerList();
+		}
+		BroadcastCenter.cleanListenerList();
 	}
-
+	
+	public static void clearAllListeners(){
+		broadcastListeners.Clear();
+	}
+	
 	private static void cleanListenerList(){
-		Action<BroadcastListener> clean = delegate(BroadcastListener bl){
-			if(bl.shouldRemove){
-				broadcastListeners.Remove(bl);
-			}
-		};
-		broadcastListeners.ForEach(clean);
+		broadcastListeners.RemoveAll(bl => bl.shouldRemove);
 	}
 }
